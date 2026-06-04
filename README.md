@@ -41,10 +41,10 @@ J = S u(x,T)²
 
  Project Structure
 
-- src/ ? numerical solver
-- main.py ? optimization pipeline
-- results/ ? simulation outputs
-- figures/ ? future plots
+- src/  numerical solver
+- main.py  optimization pipeline
+- results/  simulation outputs
+- figures/  future plots
 
 ---
 
