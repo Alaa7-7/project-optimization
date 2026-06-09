@@ -75,3 +75,9 @@ python main.py
 ---
 
  Project Structure
+---
+
+How to Run
+
+-- bash id="run1"
+python main.py
