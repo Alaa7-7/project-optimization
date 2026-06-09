@@ -1,18 +1,15 @@
 import streamlit as st
-from src.solvers.exact_solver import solve_exact
+from src.solvers.genetic_solver import solve_genetic
 
-st.title(" AI Optimization Dashboard")
+st.title("Research-Grade Optimization System")
 
-st.write("Interactive AI Optimization System")
+n = st.slider("Problem Size", 10, 100, 20)
 
-size = st.slider("Problem Size", 5, 100, 20)
+if st.button("Run Genetic Algorithm"):
+    result = solve_genetic(n)
 
-if st.button("Run Optimization"):
-    result = solve_exact({"size": size})
-
-    st.subheader(" Results")
-
+    st.subheader("Best Solution")
     st.json(result)
 
     st.metric("Cost", result["cost"])
-    st.metric("Efficiency", result["efficiency_score"])
+    st.metric("Efficiency", result["efficiency"])
