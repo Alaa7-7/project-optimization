@@ -13,3 +13,9 @@ def genetic_optimize(request: dict):
         "result": result
     }
 
+from src.solvers.comparison import run_comparison
+
+@app.post("/compare")
+def compare(request: dict):
+    n = request.get("size", 20)
+    return run_comparison(n)

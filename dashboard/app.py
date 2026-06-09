@@ -1,15 +1,31 @@
 import streamlit as st
-from src.solvers.genetic_solver import solve_genetic
+from src.solvers.comparison import run_comparison
 
-st.title("Research-Grade Optimization System")
+st.title(" AI Optimization Research Dashboard")
 
 n = st.slider("Problem Size", 10, 100, 20)
 
-if st.button("Run Genetic Algorithm"):
-    result = solve_genetic(n)
+if st.button("Run Comparison"):
+    result = run_comparison(n)
 
-    st.subheader("Best Solution")
     st.json(result)
 
-    st.metric("Cost", result["cost"])
-    st.metric("Efficiency", result["efficiency"])
+    labels = ["Greedy", "Random", "Genetic"]
+
+    efficiency = [
+        result["greedy"]["efficiency"],
+        result["random"]["efficiency"],
+        result["genetic"]["efficiency"]
+    ]
+
+    cost = [
+        result["greedy"]["cost"],
+        result["random"]["cost"],
+        result["genetic"]["cost"]
+    ]
+
+    st.subheader(" Efficiency")
+    st.bar_chart(dict(zip(labels, efficiency)))
+
+    st.subheader(" Cost")
+    st.bar_chart(dict(zip(labels, cost)))
