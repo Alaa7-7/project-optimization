@@ -1,7 +1,7 @@
  Advection–Diffusion Optimization Project
 
  Overview
-This project implements a numerical solution of the 1D Advection–Diffusion equation and performs parameter optimization to identify the best physical parameters (velocity and diffusion coefficient).
+This project implements a numerical solution of the 1D Advection–Diffusion equation and performs parameter optimization to identify the best physical parameters (velocity and diffusion coefficient).It also generates a final analysis report saved in the results/ folder.
 
 ---
 
@@ -9,7 +9,7 @@ This project implements a numerical solution of the 1D Advection–Diffusion equat
 
 The system is governed by the Advection–Diffusion equation:
 
-?u/?t + v ?u/?x = D ?²u/?x²
+du/dt + v du/dx = D d²u/dx²
 
 Where:
 - u(x,t): transported quantity
@@ -62,3 +62,16 @@ The program returns:
 
 bash
 python main.py
+
+
+---
+
+ Features
+- Diffusion-based simulation model
+- Dynamic visualization and animation
+- Automatic result export
+- Scientific-style documentation (paper included)
+
+---
+
+ Project Structure
