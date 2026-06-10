@@ -1,4 +1,4 @@
 from experiments.run_experiment import run_full_pipeline
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     run_full_pipeline()

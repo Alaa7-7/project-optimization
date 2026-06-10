@@ -1,2 +1,12 @@
 venv/
-venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+results/
+data/
+
+*.log
+
+.DS_Store
