@@ -19,19 +19,35 @@ def run_full_pipeline():
 
     for i in range(N_iter):
 
-        v = np.random.normal(0.8, 0.25)
-        D = np.random.normal(0.05, 0.03)
+        # sampling (bounded stochastic search)
+        v = np.clip(np.random.normal(0.8, 0.12), 0.4, 1.2)
+        D = np.clip(np.random.normal(0.05, 0.01), 0.01, 0.1)
 
+        # extra safety bounds
         v = np.clip(v, 0.1, 2.0)
         D = np.clip(D, 0.001, 0.2)
 
+        # forward model
         u = run_sim(v, D)
 
-        cost = np.sum((u - u_target) ** 2)
+        # numerical safety
+        u = np.nan_to_num(u, nan=0.0, posinf=1e3, neginf=-1e3)
+
+        # skip unstable solutions (IMPORTANT)
+        if np.max(np.abs(u)) > 1e3:
+            continue
+
+        # cost function (normalized L2)
+        cost = np.linalg.norm(u - u_target) / (np.linalg.norm(u_target) + 1e-8)
 
         samples_v.append(v)
         samples_D.append(D)
         costs.append(cost)
+
+    # safety check (avoid crash if all skipped)
+    if len(costs) == 0:
+        print("No valid samples found!")
+        return
 
     best_idx = np.argmin(costs)
 
@@ -45,8 +61,14 @@ def run_full_pipeline():
     print("Estimated D =", best_D)
     print("Min cost =", np.min(costs))
 
+    # final best simulation
     u_best = run_sim(best_v, best_D)
+    u_best = np.nan_to_num(u_best, nan=0.0, posinf=1e3, neginf=-1e3)
 
+    # save results
     np.savetxt("results/final_solution.txt", u_best)
+    np.savetxt("results/samples_v.txt", samples_v)
+    np.savetxt("results/samples_D.txt", samples_D)
+    np.savetxt("results/costs.txt", costs)
 
     print("Finished successfully.")
