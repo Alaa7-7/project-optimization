@@ -56,3 +56,33 @@ by finding optimal:
 
 bash
 python main.py
+
+
+
+Outputs
+
+
+ Comparative Study
+
+This project compares two inverse problem approaches:
+
+ 1. Grid Search (Classical Method)
+- Deterministic parameter sweep
+- Low computational efficiency
+- Baseline method
+
+ 2. Bayesian Sampling (Proposed Method)
+- Stochastic inference approach
+- Provides uncertainty estimation
+- More efficient exploration of parameter space
+
+
+
+ Scientific Contribution
+
+The key contribution of this work is the comparison between:
+
+- Traditional optimization methods
+- Probabilistic Bayesian inference
+
+for solving inverse PDE problems.
