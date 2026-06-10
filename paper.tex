@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Bayesian-Inspired Inverse Problem for Advection-Diffusion Systems}
+\author{Musab}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Abstract}
+This paper presents a stochastic inverse problem framework for estimating unknown parameters in an advection-diffusion equation. A Bayesian-inspired sampling method is used to recover velocity and diffusion coefficients from noisy observations.
+
+\section{Mathematical Model}
+
+The governing equation is:
+
+\[
+\frac{\partial u}{\partial t} + v \frac{\partial u}{\partial x} = D \frac{\partial^2 u}{\partial x^2}
+\]
+
+where $v$ is the advection velocity and $D$ is the diffusion coefficient.
+
+\section{Methodology}
+
+We use a stochastic sampling approach:
+
+\begin{itemize}
+\item Random sampling of parameters $(v, D)$
+\item Numerical simulation of PDE
+\item Cost function based on L2 error
+\item Selection of best parameters minimizing cost
+\end{itemize}
+
+\section{Results}
+
+True parameters:
+\begin{itemize}
+\item $v = 0.8$
+\item $D = 0.05$
+\end{itemize}
+
+Estimated parameters:
+\begin{itemize}
+\item $v \approx 0.7939$
+\item $D \approx 0.0497$
+\end{itemize}
+
+The method achieves less than 2\% relative error.
+
+\section{Cost Function}
+
+The optimization minimizes:
+
+\[
+J = ||u(v,D) - u_{true}||^2
+\]
+
+Observed minimum cost:
+
+\[
+J_{min} \approx 0.0415
+\]
+
+\section{Conclusion}
+
+The proposed method successfully solves the inverse problem with high accuracy and stable convergence.
+
+\end{document}
