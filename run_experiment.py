@@ -1,9 +1,9 @@
+﻿import numpy as np
+from src.diffusion import run_sim
+
 def run_full_pipeline():
 
-    print("=== Bayesian Inverse Problem with Uncertainty ===")
-
-    import numpy as np
-    from src.diffusion import run_sim
+    print("=== Bayesian-style Inverse Problem Optimization ===")
 
     true_v = 0.8
     true_D = 0.05
@@ -15,12 +15,12 @@ def run_full_pipeline():
     samples_D = []
     costs = []
 
-    N_iter = 400
+    N_iter = 200
 
     for i in range(N_iter):
 
-        v = np.random.normal(0.8, 0.25)
-        D = np.random.normal(0.05, 0.03)
+        v = np.random.normal(0.8, 0.2)
+        D = np.random.normal(0.05, 0.02)
 
         v = np.clip(v, 0.1, 2.0)
         D = np.clip(D, 0.001, 0.2)
@@ -33,17 +33,15 @@ def run_full_pipeline():
         samples_D.append(D)
         costs.append(cost)
 
-    best_idx = np.argmin(costs)
+    best_index = np.argmin(costs)
 
-    best_v = samples_v[best_idx]
-    best_D = samples_D[best_idx]
+    best_v = samples_v[best_index]
+    best_D = samples_D[best_index]
 
     print("\n=== Results ===")
-    print("True v =", true_v)
-    print("Estimated v =", best_v)
-    print("True D =", true_D)
-    print("Estimated D =", best_D)
-    print("Min cost =", np.min(costs))
+    print("True v =", true_v, "| Estimated v =", best_v)
+    print("True D =", true_D, "| Estimated D =", best_D)
+    print("Min Error =", np.min(costs))
 
     u_best = run_sim(best_v, best_D)
 
