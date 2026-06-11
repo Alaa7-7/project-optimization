@@ -1,135 +1,205 @@
-Scientific Computing and AI Optimization Projects
+#  Scientific Optimization & Inverse Modeling Framework
 
-    This repository contains two research-level projects in scientific computing and optimization.
+##  Overview
 
-Advection–Diffusion Optimization Project
+This repository contains a hybrid computational framework for:
 
+1. Scientific numerical simulation of partial differential equations (PDEs)
+2. Optimization-based parameter estimation (inverse problems)
+3. Benchmarking of heuristic optimization algorithms
 
-Overview
+The project combines:
+- Numerical PDE solver (Advection–Diffusion equation)
+- Inverse problem solving
+- Optimization algorithms (GA / PSO / Random Search)
 
-    This project implements a numerical solution of the 1D Advection–Diffusion equation and performs parameter optimization to identify the best physical parameters (velocity and diffusion coefficient).
+---
 
+#  Mathematical Model
 
-Governing Equation
+##  Advection–Diffusion Equation
 
-    du/dt + v du/dx = D d²u/dx²
+The system is based on the following PDE:
 
-     Where:
-   - u(x,t): transported quantity  
-   - v: advection velocity  
-   - D: diffusion coefficient  
+\[
+\frac{\partial u}{\partial t} + v \frac{\partial u}{\partial x}
+= D \frac{\partial^2 u}{\partial x^2}
+\]
 
+Where:
 
-Objective
+- \( u(x,t) \): transported quantity
+- \( v \): advection velocity (unknown parameter)
+- \( D \): diffusion coefficient (unknown parameter)
 
-  Minimize:
+---
 
-  J = D u(x,T)² dx
+##  Inverse Problem Objective
 
-  by finding optimal:
- - v (velocity)
- - D (diffusion coefficient)
+We aim to estimate unknown parameters \( v \) and \( D \) from observed data:
 
-Methodology
+\[
+\min_{v, D} \; \| u_{sim}(v, D) - u_{obs} \|_2^2
+\]
 
-  - Finite Difference Method (FDM)
-  - Explicit time stepping scheme
-  - Grid search optimization
-  - Parameter sweep over (v, D)
+This is a classical *inverse PDE problem*.
 
-Output
+---
 
-  - Optimal v
-  - Optimal D
-  - Minimum cost value
-  - Final numerical solution
+#  Methodology
 
-How to Run
+## 1. Forward Solver (PDE Simulation)
 
-  bash
-  python main.py
+- Finite Difference Method (FDM)
+- Explicit time stepping
+- Upwind scheme for advection
+- Central difference for diffusion
 
+Used to generate synthetic observed data.
 
-Comparative Study
+---
 
-  This project compares two inverse problem approaches:
+## 2. Inverse Solver
 
-  1. Grid Search (Classical Method)
-    - Deterministic parameter sweep
-    - Low computational efficiency
-    - Baseline method
+We estimate parameters using optimization algorithms:
 
-  2. Bayesian Sampling (Proposed Method)
-    - Stochastic inference approach
-    - Provides uncertainty estimation
-    - More efficient exploration of parameter space
+###  Genetic Algorithm (GA)
+- Population-based search
+- Selection, crossover, mutation
+- Global exploration
 
-Scientific Contribution
+###  Particle Swarm Optimization (PSO)
+- Swarm intelligence
+- Velocity-position update rules
+- Faster convergence
 
-  The key contribution of this work is the comparison between:
+###  Random Search
+- Baseline method
+- Pure stochastic sampling
 
-  - Traditional optimization methods
-  - Probabilistic Bayesian inference
+---
 
-  for solving inverse PDE problems.
- 
-Results
+#  Optimization Process
 
- The proposed Bayesian-inspired inverse method was evaluated on a synthetic advection–diffusion system with known ground-truth parameters.
+1. Initialize candidate solutions (v, D)
+2. Simulate PDE using forward solver
+3. Compute loss between simulation and observed data
+4. Update solutions using optimization algorithm
+5. Repeat until convergence
 
- True vs Estimated Parameters
+---
 
-  | Parameter | True Value | Estimated Value |
-  | v (velocity) | 0.8 | 0.7939 |
-  | D (diffusion) | 0.05 | 0.0497 |
+#  Results
 
- The model successfully recovered the unknown parameters with high accuracy, achieving less than 2% relative error.
+##  True Parameters
 
+- \( v = 0.8 \)
+- \( D = 0.05 \)
 
- Cost Function Analysis
+---
 
-  - Minimum cost achieved: *0.0415*
-  - Mean cost: *0.0842*
-  - Standard deviation: *0.0293*
-  - Maximum cost: *0.1546*
+##  Estimated Results
 
- These values indicate stable convergence of the optimization process without numerical divergence.
+| Method | v estimate | D estimate | Accuracy |
+|--------|------------|------------|----------|
+| GA     | ~0.78      | ~0.0508    | Good     |
+| PSO    | ~0.8029    | ~0.05025   | Very High |
 
+---
 
-Statistical Behavior of Sampling
+##  Error Analysis
 
-  - v mean: 0.8075 (close to true value 0.8
-  - v std: 0.1171 (controlled exploration)
-  - D mean: 0.0490 (very close to true value 0.05)
-  - D std: 0.0093 (high stability)
+- GA:
+  - v error ˜ 0.02 – 0.03
+  - D error ˜ 0.002
 
- Optimization Quality Metric
+- PSO:
+  - v error ˜ 0.0075
+  - D error ˜ 0.00026
 
- Relative improvement score:
+---
 
-  \[
-  \text{RI} = 0.7312
-  \]
+#  Project Structure
+project-optimization/
 
-  This indicates strong convergence behavior and effective exploration of the parameter space.
++-- src/
+¦   +-- solvers/
+¦   ¦   +-- genetic_solver.py
+¦   ¦   +-- comparison.py
+¦   ¦   +-- pso_solver.py
+¦   ¦
+¦   +-- ml/
+¦   ¦   +-- problem_model.py
+¦   ¦
+¦   +-- core/
+¦   ¦   +-- problem_formulation.py
+¦   ¦
+¦   +-- inverse/
+¦   ¦   +-- optimizer.py
+¦   ¦   +-- pso_optimizer.py
+¦   ¦   +-- cost_function.py
+¦   ¦
+¦   +-- diffusion.py
+¦
++-- experiments/
+¦   +-- run_experiment.py
+¦   +-- run_inverse.py
+¦
++-- results/
+¦   +-- results_v_estimates.txt
+¦   +-- results_D_estimates.txt
+¦   +-- errors_v.txt
+¦   +-- errors_D.txt
+¦
++-- figures/
+¦
++-- paper.tex
++-- paper.pdf
++-- README.md
++-- requirements.txt
 
+---
 
-Key Insight
+#  How to Run
 
- The Bayesian-inspired stochastic optimization method provides:
-   - Accurate parameter recovery
-   - Stable convergence under noise
-   - Robust performance for inverse PDE problems
+## 1. Setup environment
 
-Interpretation of Results
+```bash
+python -m venv venv
+venv\Scripts\activate
+python experiments/run_experiment.py
+python experiments/run_inverse.py
 
-  The results show that the proposed method is able to correctly identify the unknown physical parameters of the advection–diffusion system.
+##  Output
 
-  Even under noisy observations, the algorithm maintains stable convergence and avoids numerical instability.
+After running the experiments, the system produces:
 
-  The close agreement between true and estimated values confirms the effectiveness of combining:
-    - Numerical PDE simulation
-    - Stochastic Bayesian-inspired optimization
-    - L2-based cost minimization
+- Estimated parameters for each optimization method
+- Cost / fitness values
+- Error statistics (mean and standard deviation)
+- Saved result files inside the results/ folder
 
- This demonstrates that the method is suitable for solving inverse problems in computational physics.
+Example output:
+- True v = 0.8, True D = 0.05
+- Estimated v ˜ 0.80
+- Estimated D ˜ 0.05
+
+---
+
+##  Summary
+
+This project demonstrates a computational framework for solving inverse problems using numerical simulation and optimization algorithms.
+
+Key points:
+
+- The system solves a simplified PDE-based model
+- Unknown parameters are estimated using optimization methods
+- Genetic Algorithm (GA) and Particle Swarm Optimization (PSO) are implemented
+- PSO shows higher accuracy and stability compared to GA
+- The framework is fully reproducible and modular
+
+---
+
+## Key Insight
+
+Combining numerical PDE simulation with heuristic optimization is an effective approach for parameter estimation in synthetic scientific systems.
