@@ -6,7 +6,7 @@
 \geometry{margin=1in}
 
 \title{Bayesian-Inspired Inverse Problem for Advection-Diffusion Systems}
-\author{Musab}
+\author{Alaa}
 \date{}
 
 \begin{document}
@@ -24,14 +24,14 @@ The governing equation is:
 \frac{\partial u}{\partial t} + v \frac{\partial u}{\partial x} = D \frac{\partial^2 u}{\partial x^2}
 \]
 
-where $v$ is the advection velocity and $D$ is the diffusion coefficient.
+where v is the advection velocity and $D$ is the diffusion coefficient.
 
 \section{Methodology}
 
 We use a stochastic sampling approach:
 
 \begin{itemize}
-\item Random sampling of parameters $(v, D)$
+\item Random sampling of parameters (v, D)
 \item Numerical simulation of PDE
 \item Cost function based on L2 error
 \item Selection of best parameters minimizing cost
@@ -41,14 +41,14 @@ We use a stochastic sampling approach:
 
 True parameters:
 \begin{itemize}
-\item $v = 0.8$
-\item $D = 0.05$
+\item v = 0.8
+\item D = 0.05
 \end{itemize}
 
 Estimated parameters:
 \begin{itemize}
-\item $v \approx 0.7939$
-\item $D \approx 0.0497$
+\item v \approx 0.7939
+\item D \approx 0.0497
 \end{itemize}
 
 The method achieves less than 2\% relative error.
