@@ -2,14 +2,11 @@
 
 This repository contains two research-level projects in scientific computing and optimization.
 
----
-
- ?Advection–Diffusion Optimization Project
+ Advection–Diffusion Optimization Project
 
  Overview
 This project implements a numerical solution of the 1D Advection–Diffusion equation and performs parameter optimization to identify the best physical parameters (velocity and diffusion coefficient).
 
----
 
  Governing Equation
 
@@ -20,19 +17,17 @@ Where:
 - v: advection velocity  
 - D: diffusion coefficient  
 
----
 
  Objective
 
 Minimize:
 
-J = ? u(x,T)² dx
+J = D u(x,T)² dx
 
 by finding optimal:
 - v (velocity)
 - D (diffusion coefficient)
 
----
 
  Methodology
 
@@ -41,7 +36,6 @@ by finding optimal:
 - Grid search optimization
 - Parameter sweep over (v, D)
 
----
 
  Output
 
@@ -50,7 +44,6 @@ by finding optimal:
 - Minimum cost value
 - Final numerical solution
 
----
 
  How to Run
 
@@ -58,9 +51,7 @@ bash
 python main.py
 
 
-
 Outputs
-
 
  Comparative Study
 
@@ -77,7 +68,6 @@ This project compares two inverse problem approaches:
 - More efficient exploration of parameter space
 
 
-
  Scientific Contribution
 
 The key contribution of this work is the comparison between:
@@ -86,7 +76,7 @@ The key contribution of this work is the comparison between:
 - Probabilistic Bayesian inference
 
 for solving inverse PDE problems.
-
+ 
  Results
 
 The proposed Bayesian-inspired inverse method was evaluated on a synthetic advection–diffusion system with known ground-truth parameters.
@@ -94,12 +84,10 @@ The proposed Bayesian-inspired inverse method was evaluated on a synthetic advec
  True vs Estimated Parameters
 
 | Parameter | True Value | Estimated Value |
-|----------|------------|----------------|
 | v (velocity) | 0.8 | 0.7939 |
 | D (diffusion) | 0.05 | 0.0497 |
 
 The model successfully recovered the unknown parameters with high accuracy, achieving less than 2% relative error.
-
 
 
  Cost Function Analysis
@@ -112,15 +100,13 @@ The model successfully recovered the unknown parameters with high accuracy, achi
 These values indicate stable convergence of the optimization process without numerical divergence.
 
 
-
  Statistical Behavior of Sampling
 
-- v mean: 0.8075 (close to true value 0.0
+- v mean: 0.8075 (close to true value 0.8
 - v std: 0.1171 (controlled exploration)
 - D mean: 0.0490 (very close to true value 0.05)
 - D std: 0.0093 (high stability)
 
----
 
  Optimization Quality Metric
 
