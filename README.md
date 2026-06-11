@@ -1,14 +1,16 @@
 Scientific Computing and AI Optimization Projects
 
-  This repository contains two research-level projects in scientific computing and optimization.
+    This repository contains two research-level projects in scientific computing and optimization.
 
 Advection–Diffusion Optimization Project
 
+
 Overview
-  This project implements a numerical solution of the 1D Advection–Diffusion equation and performs parameter optimization to identify the best physical parameters (velocity and diffusion coefficient).
+
+    This project implements a numerical solution of the 1D Advection–Diffusion equation and performs parameter optimization to identify the best physical parameters (velocity and diffusion coefficient).
 
 
-  Governing Equation
+Governing Equation
 
     du/dt + v du/dx = D d²u/dx²
 
@@ -47,7 +49,6 @@ How to Run
   bash
   python main.py
 
-Outputs
 
 Comparative Study
 
