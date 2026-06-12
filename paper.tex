@@ -1,0 +1,104 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{float}
+
+\geometry{margin=1in}
+
+\title{Inverse Modeling and Optimization of the Advection--Diffusion Equation}
+\author{Alaa}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This project presents a computational framework for solving an inverse parameter estimation problem based on the one-dimensional Advection--Diffusion equation. The goal is to estimate unknown physical parameters using numerical simulation combined with optimization algorithms.
+\end{abstract}
+
+\section{Introduction}
+
+Inverse problems in partial differential equations (PDEs) aim to estimate unknown parameters from observed data.
+
+This project integrates:
+\begin{itemize}
+\item Numerical PDE solver
+\item Synthetic data generation
+\item Optimization algorithms (GA and PSO)
+\end{itemize}
+
+\section{Mathematical Model}
+
+The governing equation is:
+
+\begin{equation}
+\frac{\partial u}{\partial t}
++
+v \frac{\partial u}{\partial x}
+=
+D \frac{\partial^2 u}{\partial x^2}
+\end{equation}
+
+where $u(x,t)$ is the state variable, $v$ is velocity, and $D$ is diffusion coefficient.
+
+\section{Numerical Method}
+
+Advection term:
+\begin{equation}
+\frac{\partial u}{\partial x} \approx \frac{u_i - u_{i-1}}{\Delta x}
+\end{equation}
+
+Diffusion term:
+\begin{equation}
+\frac{\partial^2 u}{\partial x^2} \approx \frac{u_{i+1} - 2u_i + u_{i-1}}{\Delta x^2}
+\end{equation}
+
+Time update:
+\begin{equation}
+u^{n+1} = u^n + \Delta t \cdot (\text{advection} + \text{diffusion})
+\end{equation}
+
+\section{Inverse Problem}
+
+We minimize:
+
+\begin{equation}
+J(v,D) =
+\left\| u_{sim}(v,D) - u_{obs} \right\|_2^2
+\end{equation}
+
+\section{Optimization Methods}
+
+\subsection{Genetic Algorithm}
+Population-based search using selection, crossover, and mutation.
+
+\subsection{Particle Swarm Optimization}
+Swarm-based search using global and personal best updates.
+
+\section{Experimental Setup}
+
+True parameters:
+\begin{itemize}
+\item $v = 0.8$
+\item $D = 0.05$
+\end{itemize}
+
+\section{Results}
+
+PSO achieved accurate estimation:
+\begin{itemize}
+\item $v \approx 0.80$
+\item $D \approx 0.050$
+\end{itemize}
+
+\section{Conclusion}
+
+The framework successfully solves the inverse PDE problem using optimization methods coupled with numerical simulation.
+
+\end{document}
