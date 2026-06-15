@@ -46,8 +46,8 @@ We aim to estimate unknown parameters \( v \) and \( D \) from observed data:
 
 where:
 
-u_sim : simulated solution from the PDE model
-u_obs : observed data
+- \( u_sim \) : simulated solution from the PDE model
+- \( u_obs \) : observed data
 
 The objective is to find the values of v and D by minimizing the difference between simulated and observed data.
 
