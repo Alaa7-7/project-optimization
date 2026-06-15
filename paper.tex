@@ -2,15 +2,12 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
+\usepackage{amsmath}
 \usepackage{geometry}
-\usepackage{hyperref}
-\usepackage{float}
 
 \geometry{margin=1in}
 
-\title{Inverse Modeling and Optimization of the Advection--Diffusion Equation}
+\title{Inverse Modeling of the Advection--Diffusion Equation}
 \author{Alaa}
 \date{\today}
 
@@ -19,23 +16,23 @@
 \maketitle
 
 \begin{abstract}
-This project presents a computational framework for solving an inverse parameter estimation problem based on the one-dimensional Advection--Diffusion equation. The goal is to estimate unknown physical parameters using numerical simulation combined with optimization algorithms.
+This project studies how to estimate unknown parameters in the Advection--Diffusion equation using numerical simulation and simple optimization methods.
 \end{abstract}
 
 \section{Introduction}
 
-Inverse problems in partial differential equations (PDEs) aim to estimate unknown parameters from observed data.
+This project focuses on estimating unknown values from a mathematical model using simulation.
 
-This project integrates:
+The project includes:
 \begin{itemize}
-\item Numerical PDE solver
-\item Synthetic data generation
-\item Optimization algorithms (GA and PSO)
+\item Solving a PDE numerically
+\item Generating sample data
+\item Using optimization methods to find parameters
 \end{itemize}
 
 \section{Mathematical Model}
 
-The governing equation is:
+The main equation is:
 
 \begin{equation}
 \frac{\partial u}{\partial t}
@@ -45,45 +42,50 @@ v \frac{\partial u}{\partial x}
 D \frac{\partial^2 u}{\partial x^2}
 \end{equation}
 
-where $u(x,t)$ is the state variable, $v$ is velocity, and $D$ is diffusion coefficient.
+where:
+$u(x,t)$ is the main variable,  
+$v$ is velocity,  
+$D$ is diffusion.
 
 \section{Numerical Method}
 
-Advection term:
+We approximate derivatives as:
+
+Advection:
 \begin{equation}
 \frac{\partial u}{\partial x} \approx \frac{u_i - u_{i-1}}{\Delta x}
 \end{equation}
 
-Diffusion term:
+Diffusion:
 \begin{equation}
 \frac{\partial^2 u}{\partial x^2} \approx \frac{u_{i+1} - 2u_i + u_{i-1}}{\Delta x^2}
 \end{equation}
 
 Time update:
 \begin{equation}
-u^{n+1} = u^n + \Delta t \cdot (\text{advection} + \text{diffusion})
+u^{n+1} = u^n + \Delta t \cdot (\text{advection + diffusion})
 \end{equation}
 
 \section{Inverse Problem}
 
-We minimize:
+We try to find $v$ and $D$ by minimizing the error:
 
 \begin{equation}
 J(v,D) =
-\left\| u_{sim}(v,D) - u_{obs} \right\|_2^2
+\left\| u_{sim} - u_{obs} \right\|^2
 \end{equation}
 
 \section{Optimization Methods}
 
 \subsection{Genetic Algorithm}
-Population-based search using selection, crossover, and mutation.
+A method that searches using population, selection, and mutation.
 
 \subsection{Particle Swarm Optimization}
-Swarm-based search using global and personal best updates.
+A method that improves solutions using best previous results.
 
 \section{Experimental Setup}
 
-True parameters:
+True values:
 \begin{itemize}
 \item $v = 0.8$
 \item $D = 0.05$
@@ -91,14 +93,14 @@ True parameters:
 
 \section{Results}
 
-PSO achieved accurate estimation:
+PSO gave good results:
 \begin{itemize}
 \item $v \approx 0.80$
-\item $D \approx 0.050$
+\item $D \approx 0.05$
 \end{itemize}
 
 \section{Conclusion}
 
-The framework successfully solves the inverse PDE problem using optimization methods coupled with numerical simulation.
+This project shows that simple optimization methods can be used to estimate unknown parameters in a PDE model.
 
 \end{document}
