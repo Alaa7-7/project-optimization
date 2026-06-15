@@ -2,15 +2,15 @@
 
 ##  Abstract
 
-This project presents a computational framework for solving an inverse parameter estimation problem based on the one-dimensional Advection–Diffusion equation. The goal is to estimate unknown physical parameters (advection velocity and diffusion coefficient) using numerical simulation combined with optimization algorithms. The framework integrates a finite difference solver with heuristic optimization methods such as Genetic Algorithms and Particle Swarm Optimization. The results demonstrate accurate recovery of the unknown parameters with low estimation error, showing the effectiveness of combining numerical PDE solvers with optimization techniques.
+This project presents a method for solving inverse problems based on the one-dimensional Advection–Diffusion equation. The goal is to estimate unknown physical parameters (advection velocity and diffusion coefficient) using numerical simulation combined with optimization algorithms. The method combines a finite difference solver with heuristic optimization methods such as Genetic Algorithms (GA) and Particle Swarm Optimization (PSO). The results demonstrate accurate recovery of the unknown parameters with low estimation error, showing the effectiveness of combining numerical PDE solvers with optimization techniques.
 
 ---
 
 ## 1. Introduction
 
-Inverse problems in partial differential equations (PDEs) are fundamental in scientific computing, where unknown physical parameters must be estimated from observed data. This work focuses on estimating the velocity and diffusion coefficient in a transport system modeled by the Advection–Diffusion equation.
+Inverse problems in partial differential equations (PDEs) are fundamental in scientific computing, where unknown physical parameters must be estimated from observed data. This work focuses on estimating the velocity and diffusion in a transport system modeled by the Advection–Diffusion equation. This work was developed as part of an optimization course project. The main objective is to compare GA and PSO for estimating unknown parameters in an advection–diffusion model.
 
-The project provides a computational environment that combines:
+The project combines:
 - Numerical PDE simulation
 - Synthetic data generation
 - Optimization-based parameter estimation
@@ -122,7 +122,7 @@ The following optimization techniques are used:
 
 - PSO:
   - Mean v ˜ 0.80
-  - Low variance ? stable convergence
+  - Low variance and stable convergence
 
 - GA:
   - Higher variance but global exploration capability
@@ -167,4 +167,4 @@ The approach can be extended to more complex physical systems and higher-dimensi
 
 ## Summary
 
-This project demonstrates that inverse problems in PDEs can be effectively solved using computational optimization techniques, bridging numerical simulation and machine learning-inspired algorithms
+This project demonstrates that inverse problems in PDEs can be effectively solved using computational optimization techniques, this project show how optimization methods can be used to estimate unknown parameters on PDE models.
