@@ -15,4 +15,10 @@ data/
 *.out
 *.log
 *.toc
-*.synctex.gz
+*.synctex.gzvenv/
+*.docx
+paper.pdf
+paper.aux
+paper.log
+paper.out
+__pycache__/
