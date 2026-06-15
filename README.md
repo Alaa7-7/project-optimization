@@ -2,7 +2,7 @@
 
 ##  Overview
 
-This repository contains a hybrid computatione for:
+This repository contains a computational project for:
 
 1. Scientific numerical simulation of partial differential equations (PDEs)
 2. Optimization-based parameter estimation (inverse problems)
@@ -11,9 +11,9 @@ This repository contains a hybrid computatione for:
 The project combines:
 - Numerical PDE solver (Advection–Diffusion equation)
 - Inverse problem solving
-- Optimization algorithms (GA / PSO / Random Search)
+- Optimization algorithms (GA / Random Search)
 
-This project was developed as part of an optimization course. The goal is to estimate unknown parameters in an advection-diffusion equation and compare the performance of GA (Genetic Algorithm) and PSO (Particle Swarm Optimization).
+This project was developed as part of an optimization course. The goal is to estimate unknown parameters in an advection-diffusion equation and compare the performance of GA (Genetic Algorithm).
 
 ---
 
@@ -72,17 +72,9 @@ We estimate parameters using optimization algorithms:
 
 ###  Genetic Algorithm (GA)
 - Population-based search
-- Selection, crossover, mutation
+- Selection and crossover
 - Global exploration
 
-###  Particle Swarm Optimization (PSO)
-- Swarm intelligence
-- Velocity-position update rules
-- Faster convergence
-
-###  Random Search
-- Baseline method
-- Pure stochastic sampling
 
 ---
 
@@ -91,8 +83,10 @@ We estimate parameters using optimization algorithms:
 1. Initialize candidate solutions (v, D)
 2. Simulate PDE using forward solver
 3. Compute loss between simulation and observed data
-4. Update solutions using optimization algorithm
-5. Repeat until convergence
+4. Evaluate the objective function
+5. Select the best parameter estimates
+
+Note: Results may vary across runs due to stochastic optimization.
 
 ---
 
@@ -107,63 +101,42 @@ We estimate parameters using optimization algorithms:
 
 ##  Estimated Results
 
-| Method | v estimate | D estimate | Accuracy |
-|--------|------------|------------|----------|
-| GA     | ~0.78      | ~0.0508    | Good     |
-| PSO    | ~0.8029    | ~0.05025   | Very High |
+| Method | v estimate | D estimate | 
+|--------|------------|------------|
+| GA     | ~0.7945     | ~0.05077    | 
 
 ---
 
 ##  Error Analysis
 
 - GA:
-  - v error ˜ 0.02 – 0.03
-  - D error ˜ 0.002
+  - v error = 0.0055
+  - D error = 0.00077
 
-- PSO:
-  - v error ˜ 0.0075
-  - D error ˜ 0.00026
+Results represent a single stochastic run of the algorithm.
 
 ---
 
 #  Project Structure
 project-optimization/
-
+¦
 +-- src/
+¦   +-- diffusion.py
 ¦   +-- solvers/
 ¦   ¦   +-- genetic_solver.py
+¦   ¦   +-- exact_solver.py
+¦   ¦   +-- benchmark.py
 ¦   ¦   +-- comparison.py
-¦   ¦   +-- pso_solver.py
-¦   ¦
 ¦   +-- ml/
-¦   ¦   +-- problem_model.py
-¦   ¦
 ¦   +-- core/
-¦   ¦   +-- problem_formulation.py
-¦   ¦
-¦   +-- inverse/
-¦   ¦   +-- optimizer.py
-¦   ¦   +-- pso_optimizer.py
-¦   ¦   +-- cost_function.py
-¦   ¦
-¦   +-- diffusion.py
 ¦
 +-- experiments/
 ¦   +-- run_experiment.py
-¦   +-- run_inverse.py
 ¦
 +-- results/
-¦   +-- results_v_estimates.txt
-¦   +-- results_D_estimates.txt
-¦   +-- errors_v.txt
-¦   +-- errors_D.txt
-¦
 +-- figures/
-¦
 +-- paper.tex
-+-- paper.pdf
 +-- README.md
-+-- requirements.txt
 
 ---
 
@@ -174,8 +147,8 @@ project-optimization/
 ```bash
 python -m venv venv
 venv\Scripts\activate
-python experiments/run_experiment.py
-python experiments/run_inverse.py
+python main.py
+
 
 ##  Output
 
@@ -201,8 +174,7 @@ Key points:
 
 - The system solves a simplified PDE-based model
 - Unknown parameters are estimated using optimization methods
-- Genetic Algorithm (GA) and Particle Swarm Optimization (PSO) are implemented
-- PSO shows higher accuracy and stability compared to GA
+- Genetic Algorithm (GA) 
 
 
 ---
