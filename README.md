@@ -1,8 +1,8 @@
-#  Scientific Optimization & Inverse Modeling Framework
+#  Scientific Optimization & Inverse Modeling
 
 ##  Overview
 
-This repository contains a hybrid computational framework for:
+This repository contains a hybrid computatione for:
 
 1. Scientific numerical simulation of partial differential equations (PDEs)
 2. Optimization-based parameter estimation (inverse problems)
@@ -12,6 +12,8 @@ The project combines:
 - Numerical PDE solver (Advection–Diffusion equation)
 - Inverse problem solving
 - Optimization algorithms (GA / PSO / Random Search)
+
+This project was developed as part of an optimization course. The goal is to estimate unknown parameters in an advection-diffusion equation and compare the performance of GA (Genetic Algorithm) and PSO (Particle Swarm Optimization).
 
 ---
 
@@ -28,7 +30,7 @@ The system is based on the following PDE:
 
 Where:
 
-- \( u(x,t) \): transported quantity
+- \( u(x,t) \): concentration or transported quantity
 - \( v \): advection velocity (unknown parameter)
 - \( D \): diffusion coefficient (unknown parameter)
 
@@ -42,7 +44,12 @@ We aim to estimate unknown parameters \( v \) and \( D \) from observed data:
 \min_{v, D} \; \| u_{sim}(v, D) - u_{obs} \|_2^2
 \]
 
-This is a classical *inverse PDE problem*.
+where:
+
+u_sim : simulated solution from the PDE model
+u_obs : observed data
+
+The objective is to find the values of v and D by minimizing the difference between simulated and observed data.
 
 ---
 
@@ -188,7 +195,7 @@ Example output:
 
 ##  Summary
 
-This project demonstrates a computational framework for solving inverse problems using numerical simulation and optimization algorithms.
+This project demonstrates a method for solving inverse problems using numerical simulation and optimization algorithms.
 
 Key points:
 
@@ -196,10 +203,10 @@ Key points:
 - Unknown parameters are estimated using optimization methods
 - Genetic Algorithm (GA) and Particle Swarm Optimization (PSO) are implemented
 - PSO shows higher accuracy and stability compared to GA
-- The framework is fully reproducible and modular
+
 
 ---
 
-## Key Insight
+## Keys
 
 Combining numerical PDE simulation with heuristic optimization is an effective approach for parameter estimation in synthetic scientific systems.
