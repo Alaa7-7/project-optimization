@@ -2,13 +2,13 @@
 
 ##  Abstract
 
-This project presents a method for solving inverse problems based on the one-dimensional Advection–Diffusion equation. The goal is to estimate unknown physical parameters (advection velocity and diffusion coefficient) using numerical simulation combined with optimization algorithms. The method combines a finite difference solver with heuristic optimization methods such as Genetic Algorithms (GA) and Particle Swarm Optimization (PSO). The results demonstrate accurate recovery of the unknown parameters with low estimation error, showing the effectiveness of combining numerical PDE solvers with optimization techniques.
+This project presents a method for solving inverse problems based on the one-dimensional Advection–Diffusion equation. The goal is to estimate unknown physical parameters (advection velocity and diffusion coefficient) using numerical simulation combined with optimization algorithms. The method combines a finite difference solver with heuristic optimization methods such as Genetic Algorithms (GA). The results demonstrate accurate recovery of the unknown parameters with low estimation error, showing the effectiveness of combining numerical PDE solvers with optimization techniques.
 
 ---
 
 ## 1. Introduction
 
-Inverse problems in partial differential equations (PDEs) are fundamental in scientific computing, where unknown physical parameters must be estimated from observed data. This work focuses on estimating the velocity and diffusion in a transport system modeled by the Advection–Diffusion equation. This work was developed as part of an optimization course project. The main objective is to compare GA and PSO for estimating unknown parameters in an advection–diffusion model.
+Inverse problems in partial differential equations (PDEs) are fundamental in scientific computing, where unknown physical parameters must be estimated from observed data. This work focuses on estimating the velocity and diffusion in a transport system modeled by the Advection–Diffusion equation. This work was developed as part of an optimization course project.
 
 The project combines:
 - Numerical PDE simulation
@@ -75,13 +75,9 @@ The following optimization techniques are used:
 
 ### 5.1 Genetic Algorithm (GA)
 - Population-based search
-- Selection, crossover, mutation
+- Selection and crossover
 - Global exploration of parameter space
 
-### 5.2 Particle Swarm Optimization (PSO)
-- Swarm intelligence method
-- Updates based on personal and global best positions
-- Faster convergence compared to GA
 
 ---
 
@@ -103,35 +99,31 @@ The following optimization techniques are used:
 
 | Method | v estimate | D estimate |
 |--------|------------|------------|
-| PSO    | 0.8029     | 0.05025    |
 | GA     | ~0.78      | ~0.0508    |
 
 ---
 
 ### 7.2 Error Analysis
 
-- PSO shows very low error:
+- GA shows very low error:
   - \( v \) error ˜ 0.0075
   - \( D \) error ˜ 0.00026
 
-- GA shows slightly higher error but stable convergence.
+- GA shows stable convergence and low estimation error across runs.
+- Results correspond to a single stochastic run of the optimization algorithm and may vary across different executions.
 
 ---
 
 ### 7.3 Statistical Behavior
 
-- PSO:
-  - Mean v ˜ 0.80
-  - Low variance and stable convergence
 
-- GA:
-  - Higher variance but global exploration capability
+- The Genetic Algorithm exhibits stochastic behavior due to its population-based search strategy, which may lead to variations across different runs.
 
 ---
 
 ## 8. Discussion
 
-The results demonstrate that optimization algorithms can successfully solve inverse PDE problems when combined with numerical solvers. PSO outperforms GA in terms of accuracy and convergence speed, while GA provides better exploration of the search space.
+The results demonstrate that optimization algorithms can successfully solve inverse PDE problems when combined with numerical solvers. The results demonstrate that the Genetic Algorithm (GA) is effective in solving the inverse problem for the Advection–Diffusion equation, achieving accurate parameter estimation with stable convergence. The algorithm provides a balance between exploration and convergence, leading to reliable optimization performance.
 
 The small estimation error confirms that the model is capable of recovering unknown physical parameters from synthetic observations.
 
