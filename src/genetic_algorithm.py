@@ -1,4 +1,3 @@
-
 import random
 
 
@@ -16,6 +15,7 @@ def genetic_algorithm(problem, population_size=10, generations=30):
         cost, value = problem.evaluate(solution)
 
         while cost > problem.budget:
+
             selected = []
 
             for i in range(problem.n):
@@ -73,8 +73,20 @@ def genetic_algorithm(problem, population_size=10, generations=30):
 
             cost, value = problem.evaluate(child)
 
-            if cost <= problem.budget:
-                new_population.append(child)
+            while cost > problem.budget:
+
+                selected = []
+
+                for i in range(problem.n):
+                    if child[i] == 1:
+                        selected.append(i)
+
+                i = random.choice(selected)
+                child[i] = 0
+
+                cost, value = problem.evaluate(child)
+
+            new_population.append(child)
 
         population = new_population
 

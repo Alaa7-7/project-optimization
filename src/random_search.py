@@ -3,8 +3,8 @@ import random
 
 def random_search(problem, runs=100):
 
-    best_solution = None
-    best_value = 0
+    best_solution = [0] * problem.n
+    best_cost, best_value = problem.evaluate(best_solution)
 
     for _ in range(runs):
 

@@ -159,6 +159,7 @@ Then I repeat several steps:
 6. Keep solutions that satisfy the budget.
 
 After several generations, I return the best solution found.
+If a new solution is over the budget, I remove some selected items until the solution becomes feasible.
 ```
 
 -----------------------------------------------------------------------------------------------------------
@@ -250,23 +251,23 @@ One example of the results was:
 Runs: 10
 
 Greedy
-Average Cost: 45.7
-Average Value: 141.4
+Average Cost: 46.5
+Average Value: 142.9
 Average Time: 1.5e-05
 
 Random Search
-Average Cost: 46.9
-Average Value: 130.6
-Average Time: 0.002356
+Average Cost: 48.6
+Average Value: 136.9
+Average Time: 0.002363
 
 Genetic Algorithm
-Average Cost: 46.2
-Average Value: 130.9
-Average Time: 0.005466
+Average Cost: 47.0
+Average Value: 137.2
+Average Time: 0.005395
 
-The results can change slightly between runs because the problem and the algorithms use random values.
+The results can change a little between runs because the problem and the algorithms use random values.
 
-In this example, Greedy achieved the highest average value and was also the fastest algorithm.
+In this example, Greedy got the highest average value and was also the fastest algorithm.
 
 Random Search and Genetic Algorithm had similar average values, but Genetic Algorithm took more time.
 ```
