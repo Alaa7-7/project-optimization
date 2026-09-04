@@ -32,11 +32,6 @@ In my project:
 Budget = 50
 
 This means the total cost of the selected items cannot be greater than 50.
-
-The default budget in my project is:
-
-Budget = 50
-
 The goal is to maximize the total value without exceeding the budget.
 ```
 ---------------------------------------------------------------------------------------------------
