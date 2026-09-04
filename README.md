@@ -40,8 +40,8 @@ The goal is to maximize the total value without exceeding the budget.
 ```
 I use a binary decision for each item.
 
-x[i] = 1  ? I select the item
-x[i] = 0  ? I do not select the item
+x[i] = 1  , I select the item
+x[i] = 0  , I do not select the item
 ```
 
 ## Total Cost
