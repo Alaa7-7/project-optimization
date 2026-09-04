@@ -1,184 +1,307 @@
-#  Scientific Optimization & Inverse Modeling
+### Optimization Algorithms Comparison
+```
+This project compares three simple optimization algorithms:
 
-##  Overview
+- Greedy Algorithm
+- Random Search
+- Genetic Algorithm
 
-This repository contains a computational project for:
+I use these algorithms to solve a simple resource allocation problem.
 
-1. Scientific numerical simulation of partial differential equations (PDEs)
-2. Optimization-based parameter estimation (inverse problems)
-3. Benchmarking of heuristic optimization algorithms
+The goal is to select items with high total value while keeping the total cost within a limited budget.
+```
+----------------------------------------------------------------------------------------------------
 
-The project combines:
-- Numerical PDE solver (Advection–Diffusion equation)
-- Inverse problem solving
-- Optimization algorithms (GA / Random Search)
+## Problem
+```
+I have a number of items. Each item has:
 
-This project was developed as part of an optimization course. The goal is to estimate unknown parameters in an advection-diffusion equation and compare the performance of GA (Genetic Algorithm).
+- A cost
+- A value
 
----
+I have a limited budget, so I cannot select all items.
 
-#  Mathematical Model
+The budget is the maximum amount of cost that I can use.
 
-##  Advection–Diffusion Equation
+In mathematics:
 
-The system is based on the following PDE:
+Total Cost <= Budget
 
-\[
-\frac{\partial u}{\partial t} + v \frac{\partial u}{\partial x}
-= D \frac{\partial^2 u}{\partial x^2}
-\]
+In my project:
 
-Where:
+Budget = 50
 
-- \( u(x,t) \): concentration or transported quantity
-- \( v \): advection velocity (unknown parameter)
-- \( D \): diffusion coefficient (unknown parameter)
+This means the total cost of the selected items cannot be greater than 50.
 
----
+The default budget in my project is:
 
-##  Inverse Problem Objective
+Budget = 50
 
-We aim to estimate unknown parameters \( v \) and \( D \) from observed data:
+The goal is to maximize the total value without exceeding the budget.
+```
+---------------------------------------------------------------------------------------------------
 
-\[
-\min_{v, D} \; \| u_{sim}(v, D) - u_{obs} \|_2^2
-\]
+## Mathematical Formulation
+```
+I use a binary decision for each item.
 
-where:
+x[i] = 1  ? I select the item
+x[i] = 0  ? I do not select the item
+```
 
-- \( u_sim \) : simulated solution from the PDE model
-- \( u_obs \) : observed data
+## Total Cost
+```
+I calculate the total cost of the selected items:
 
-The objective is to find the values of v and D by minimizing the difference between simulated and observed data.
+Total Cost = cost[1] * x[1] + cost[2] * x[2] + ... + cost[n] * x[n]
 
----
+In simple words, I add the cost of every selected item.
+```
 
-#  Methodology
+## Total Value
 
-## 1. Forward Solver (PDE Simulation)
+```
+I calculate the total value of the selected items:
 
-- Finite Difference Method (FDM)
-- Explicit time stepping
-- Upwind scheme for advection
-- Central difference for diffusion
+Total Value = value[1] * x[1] + value[2] * x[2] + ... + value[n] * x[n]
 
-Used to generate synthetic observed data.
+In simple words, I add the value of every selected item.
+```
 
----
+## Budget Constraint
+```
+The total cost must not be greater than the budget:
 
-## 2. Inverse Solver
+Total Cost <= Budget
+```
 
-We estimate parameters using optimization algorithms:
+## Optimization Goal
 
-###  Genetic Algorithm (GA)
-- Population-based search
-- Selection and crossover
-- Global exploration
+The main goal is:
+
+Maximize Total Value
+
+This means I try to get the highest possible value while respecting the budget.
+
+```
+Simple Example
+
+For example:
+
+Cost  = [10, 8, 5, 12]
+Value = [20, 24, 15, 18]
+Budget = 20
+
+If I use:
+
+solution = [1, 1, 0, 0]
+
+I select the first and second items.
+
+The total cost is:
+
+Total Cost = 10*1 + 8*1 + 5*0 + 12*0
+           = 18
+
+The total value is:
+
+Total Value = 20*1 + 24*1 + 15*0 + 18*0
+            = 44
+
+Since:
+
+18 <= 20
+
+The solution is feasible because the total cost is within the budget.
+This means the solution follows the budget constraint and can be accepted.
+```
+----------------------------------------------------------------------------------------------------------
 
 
----
+## Algorithms
 
-#  Optimization Process
+# 1. Greedy Algorithm
 
-1. Initialize candidate solutions (v, D)
-2. Simulate PDE using forward solver
-3. Compute loss between simulation and observed data
-4. Evaluate the objective function
-5. Select the best parameter estimates
+```
+I calculate the value-to-cost ratio for each item:
 
-Note: Results may vary across runs due to stochastic optimization.
+Ratio = Value / Cost
 
----
+Then I sort the items from the highest ratio to the lowest ratio.
 
-#  Results
+I select an item if adding it does not exceed the budget.
 
-##  True Parameters
+The Greedy Algorithm is simple and fast, but it does not always find the best possible solution.
+```
 
-- \( v = 0.8 \)
-- \( D = 0.05 \)
+# 2. Random Search
 
----
+```
+I generate random solutions.
 
-##  Estimated Results
+For each solution, I calculate:
 
-| Method | v estimate | D estimate | 
-|--------|------------|------------|
-| GA     | ~0.7945     | ~0.05077    | 
+- Total Cost
+- Total Value
+```
 
----
+If the solution is within the budget and has a better value than the previous solution, I keep it.
 
-##  Error Analysis
+I repeat this process many times and return the best solution found.
 
-- GA:
-  - v error = 0.0055
-  - D error = 0.00077
+# 3. Genetic Algorithm
 
-Results represent a single stochastic run of the algorithm.
+I start with a population of random solutions.
 
----
+```
+Then I repeat several steps:
 
-#  Project Structure
+1. Evaluate the solutions.
+2. Keep the better solutions.
+3. Select two parent solutions.
+4. Create a new solution using crossover.
+5. Sometimes change one item using mutation.
+6. Keep solutions that satisfy the budget.
+
+After several generations, I return the best solution found.
+```
+
+-----------------------------------------------------------------------------------------------------------
+
+
+```
+Project Structure
+
 project-optimization/
 ¦
-+-- src/
-¦   +-- diffusion.py
-¦   +-- solvers/
-¦   ¦   +-- genetic_solver.py
-¦   ¦   +-- exact_solver.py
-¦   ¦   +-- benchmark.py
-¦   ¦   +-- comparison.py
-¦   +-- ml/
-¦   +-- core/
-¦
-+-- experiments/
-¦   +-- run_experiment.py
-¦
-+-- results/
-+-- figures/
-+-- paper.tex
++-- main.py
 +-- README.md
++-- requirements.txt
+¦
++-- src/
+¦   +-- problem.py
+¦   +-- greedy.py
+¦   +-- random_search.py
+¦   +-- genetic_algorithm.py
+¦   +-- comparison.py
+¦   +-- multiple_runs.py
+¦
++-- tests/
+    +-- test_problem.py
+    +-- test_greedy.py
+    +-- test_random_search.py
+    +-- test_genetic_algorithm.py
+```
 
----
+--------------------------------------------------------------------------------------------------------------
 
-#  How to Run
+## Files
 
-## 1. Setup environment
+```
+"problem.py"
 
-```bash
-python -m venv venv
-venv\Scripts\activate
-python main.py
+This file defines the optimization problem.
+
+It creates random costs and values for the items and calculates the total cost and total value of a solution.
+
+"greedy.py"
+
+This file contains the Greedy Algorithm.
+
+It selects items according to their value-to-cost ratio.
+
+"random_search.py"
+
+This file contains the Random Search algorithm.
+
+It generates random solutions and keeps the best feasible solution.
+
+"genetic_algorithm.py"
+
+This file contains the Genetic Algorithm.
+
+It uses a population, selection, crossover, and mutation.
+
+"comparison.py"
+
+This file runs the three algorithms on the same problem and compares:
+
+- Cost
+- Value
+- Time
+
+"multiple_runs.py"
+
+This file runs the algorithms multiple times.
+
+I use 10 runs and calculate the average cost, average value, and average running time.
+
+"tests/"
+
+This folder contains simple tests for the problem and the three algorithms.
+```
+
+-------------------------------------------------------------------------------------------------------
 
 
-##  Output
+## Results
 
-After running the experiments, the system produces:
+I ran the algorithms multiple times using the same problem in each run.
 
-- Estimated parameters for each optimization method
-- Cost / fitness values
-- Error statistics (mean and standard deviation)
-- Saved result files inside the results/ folder
+```
+One example of the results was:
 
-Example output:
-- True v = 0.8, True D = 0.05
-- Estimated v ˜ 0.80
-- Estimated D ˜ 0.05
+=== Multiple Runs Results ===
+Runs: 10
 
----
+Greedy
+Average Cost: 45.7
+Average Value: 141.4
+Average Time: 1.5e-05
 
-##  Summary
+Random Search
+Average Cost: 46.9
+Average Value: 130.6
+Average Time: 0.002356
 
-This project demonstrates a method for solving inverse problems using numerical simulation and optimization algorithms.
+Genetic Algorithm
+Average Cost: 46.2
+Average Value: 130.9
+Average Time: 0.005466
 
-Key points:
+The results can change slightly between runs because the problem and the algorithms use random values.
 
-- The system solves a simplified PDE-based model
-- Unknown parameters are estimated using optimization methods
-- Genetic Algorithm (GA) 
+In this example, Greedy achieved the highest average value and was also the fastest algorithm.
+
+Random Search and Genetic Algorithm had similar average values, but Genetic Algorithm took more time.
+```
+
+--------------------------------------------------------------------------------------------------------------
 
 
----
+## Testing
 
-## Keys
+```
+I created four simple tests:
 
-Combining numerical PDE simulation with heuristic optimization is an effective approach for parameter estimation in synthetic scientific systems.
+test_problem.py
+test_greedy.py
+test_random_search.py
+test_genetic_algorithm.py
+
+All four tests passed successfully.
+```
+-------------------------------------------------------------------------------------------------------------------
+
+
+## Conclusion
+
+In this project, I compared three optimization algorithms on a simple resource allocation problem.
+
+The results show that a simple algorithm such as Greedy can perform very well on a small problem.
+
+Random Search can find good solutions by trying many random possibilities.
+
+Genetic Algorithm uses a more advanced search process with selection, crossover, and mutation, but it also needs more time.
+
+The main purpose of this project is to understand how different optimization algorithms work and compare their results on the same problem.

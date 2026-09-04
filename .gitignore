@@ -1,24 +1,12 @@
 venv/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
 
 results/
 data/
 
 *.log
-
-.DS_Store
-
 *.aux
 *.out
-*.log
 *.toc
-*.synctex.gzvenv/
-*.docx
-paper.pdf
-paper.aux
-paper.log
-paper.out
-__pycache__/
+*.synctex.gz

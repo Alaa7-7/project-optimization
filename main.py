@@ -1,4 +1,5 @@
-from experiments.run_experiment import run_full_pipeline
+from src.comparison import run_comparison
+
 
 if __name__ == "__main__":
-    run_full_pipeline()
+    run_comparison()
